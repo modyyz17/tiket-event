@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('tickets', function (Blueprint $table) {
+    Schema::create('tikets', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('event_id')->constrained('events');
-        $table->string('ticket_code');
-        $table->string('status')->default('pending');
+        $table->string('nama_lengkap');
+        $table->string('email');
+        $table->string('event');
         $table->timestamps();
     });
 }
+
+    
 
     /**
      * Reverse the migrations.

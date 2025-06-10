@@ -2,22 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event; // Pastikan sudah ada model Event
 use Illuminate\Http\Request;
+use App\Models\Event;
 
 class EventController extends Controller
 {
-    // Menampilkan daftar semua event
-    public function index()
+    // Halaman daftar Konser
+    public function konser()
+{
+    $konser = Event::where('kategori', 'konser')->get();
+    return view('events.konser', compact('konser'));
+}
+
+    // Halaman daftar Seminar
+    public function seminar()
     {
-        $events = Event::all(); // Ambil semua data event dari database
-        return view('events.index', compact('events')); // Pastikan view ini ada di resources/views/events/index.blade.php
+        $seminar = Event::where('kategori', 'seminar')->get();
+        return view('events.seminar', compact('seminar'));
     }
 
-    // Menampilkan detail event berdasarkan ID
-    public function show($id)
+    // Halaman daftar Pameran
+    public function pameran()
     {
-        $event = Event::findOrFail($id); // Ambil event berdasarkan ID
-        return view('events.show', compact('event')); // Pastikan view ini ada di resources/views/events/show.blade.php
+        $pameran = Event::where('kategori', 'pameran')->get();
+        return view('events.pameran', compact('pameran'));
+    }
+
+    // Halaman daftar Gameshow
+    public function gameshow()
+    {
+        $gameshow = Event::where('kategori', 'gameshow')->get();
+        return view('events.gameshow', compact('gameshow'));
     }
 }

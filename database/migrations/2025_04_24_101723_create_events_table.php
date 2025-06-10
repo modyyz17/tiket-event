@@ -9,15 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+   public function up()
 {
     Schema::create('events', function (Blueprint $table) {
         $table->id();
         $table->string('nama_event');
-        $table->text('deskripsi')->nullable();
-        $table->date('tanggal');
         $table->string('lokasi');
-        $table->integer('harga');
+        $table->date('tanggal');
+        $table->string('kategori'); // konser, seminar, pameran, gameshow
+        $table->string('gambar')->nullable();
         $table->timestamps();
     });
 }

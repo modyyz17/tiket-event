@@ -9,5 +9,6 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'location', 'event_date', 'description'];
+    protected $table = 'events'; // opsional, tapi aman ditulis
+    protected $fillable = ['nama_event', 'lokasi', 'tanggal', 'kategori', 'gambar'];
 }
