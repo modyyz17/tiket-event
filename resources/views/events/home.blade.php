@@ -64,9 +64,9 @@
     <h2 class="text-xl font-semibold mb-4">Kategori Tiket</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <a href="/events/konser" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎤 Konser</a>
-        <a href="/kategori/seminar" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎓 Seminar</a>
-        <a href="/kategori/pameran" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎨 Pameran</a>
-        <a href="/kategori/gameshow" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎮 Game Show</a>
+<a href="/events/seminar" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎓 Seminar</a>
+<a href="/events/pameran" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎨 Pameran</a>
+<a href="/events/gameshow" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎮 Game Show</a>
     </div>
 </section>
 
