@@ -60,17 +60,16 @@
 
 
 <!-- Kategori Tiket -->
+<!-- Kategori Tiket -->
 <section class="p-6">
     <h2 class="text-xl font-semibold mb-4">Kategori Tiket</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <a href="/events/konser" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎤 Konser</a>
-<a href="/events/seminar" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎓 Seminar</a>
-<a href="/events/pameran" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎨 Pameran</a>
-<a href="/events/gameshow" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎮 Game Show</a>
+        <a href="/events/seminar" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎓 Seminar</a>
+        <a href="/events/pameran" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎨 Pameran</a>
+        <a href="/events/gameshow" class="bg-white p-4 rounded shadow text-center kategori cursor-pointer hover:bg-gray-100 transition">🎮 Game Show</a>
     </div>
 </section>
-
-
 
 
 
@@ -95,8 +94,6 @@
 <footer class="bg-white shadow p-4 text-center mt-6">
     <p class="text-sm text-gray-500">© 2025 Eventify. All rights reserved.</p>
 </footer>
-
-
 </body>
 </html>
 

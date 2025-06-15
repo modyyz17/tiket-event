@@ -2,25 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Tiket extends Model
 {
-    // Relasi ke model kategori
-    public function kategori()
-    {
-        return $this->belongsTo(KategoriTiket::class, 'kategori_id');
-    }
+    use HasFactory;
 
-    // Kolom yang bisa diisi saat create/update
     protected $fillable = [
-        'nama', 
-        'deskripsi', 
-        'lokasi', 
-        'tanggal', 
-        'waktu', 
-        'harga', 
-        'gambar', 
-        'kategori_id'
+        'event_id',
+        'name',
+        'email',
+        'phone_number',
+        'quantity',
+        'total_price',
+        'payment_method',
+        'ticket_code',
+        'status',
+        'payment_proof_path', // tambahkan jika kamu menggunakan bukti pembayaran
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }

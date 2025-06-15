@@ -13,14 +13,15 @@ return new class extends Migration
 {
     Schema::create('events', function (Blueprint $table) {
         $table->id();
-        $table->string('nama_event');
-        $table->string('lokasi');
-        $table->date('tanggal');
-        $table->string('kategori'); // konser, seminar, pameran, gameshow
-        $table->string('gambar')->nullable();
+        $table->string('title');
+        $table->string('location');
+        $table->date('date');
+        $table->text('description');
+        $table->string('image')->nullable();
         $table->timestamps();
     });
 }
+
 
 
 
