@@ -9,24 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+ public function up()
 {
-    Schema::create('tikets', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama_lengkap');
-        $table->string('email');
-        $table->string('event');
-        $table->timestamps();
+    Schema::table('tikets', function (Blueprint $table) {
+        $table->string('payment_proof')->nullable();
     });
 }
 
-    
+
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('tickets');
+        Schema::table('tikets', function (Blueprint $table) {
+            //
+        });
     }
 };

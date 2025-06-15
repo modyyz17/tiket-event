@@ -2,36 +2,106 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    // Halaman daftar Konser
-    public function konser()
+    public function show($id)
 {
-    $konser = Event::where('kategori', 'konser')->get();
-    return view('events.konser', compact('konser'));
+    $event = Event::findOrFail($id); // Ambil data event
+    return view('events.show', compact('event')); // Tampilkan ke view
 }
 
-    // Halaman daftar Seminar
-    public function seminar()
+
+    public function dashboard()
     {
-        $seminar = Event::where('kategori', 'seminar')->get();
-        return view('events.seminar', compact('seminar'));
+        $events = Event::latest()->get(); // ambil semua event
+        return view('dashboard', compact('events'));
     }
 
-    // Halaman daftar Pameran
-    public function pameran()
-    {
-        $pameran = Event::where('kategori', 'pameran')->get();
-        return view('events.pameran', compact('pameran'));
+
+    public function konser(Request $request)
+{
+    $query = Event::where('category', 'konser');
+
+    if ($request->has('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
     }
 
-    // Halaman daftar Gameshow
-    public function gameshow()
+    $events = $query->get();
+
+    return view('events.konser', compact('events'));
+}
+
+ public function seminar(Request $request)
+{
+    $query = Event::where('category', 'seminar');
+
+    if ($request->has('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
+    }
+
+    $events = $query->get();
+
+    return view('events.seminar', compact('events'));
+}
+
+ public function pameran(Request $request)
+{
+    $query = Event::where('category', 'pameran');
+
+    if ($request->has('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
+    }
+
+    $events = $query->get();
+
+    return view('events.pameran', compact('events'));
+}
+
+ public function gameshow(Request $request)
+{
+    $query = Event::where('category', 'gameshow');
+
+    if ($request->has('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
+    }
+
+    $events = $query->get();
+
+    return view('events.gameshow', compact('events'));
+}
+
+
+
+    public function index()
     {
-        $gameshow = Event::where('kategori', 'gameshow')->get();
-        return view('events.gameshow', compact('gameshow'));
+        $events = Event::all();
+        return view('events.index', compact('events'));
+    }
+
+    public function create()
+    {
+        return view('events.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required',
+            'location' => 'required',
+            'date' => 'required|date',
+            'description' => 'required',
+            'image' => 'nullable|image',
+            'category' => 'required|in:seminar,konser,gameshow,pameran',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('events', 'public');
+        }
+
+        Event::create($data);
+        return redirect()->route('events.index')->with('success', 'Event berhasil ditambahkan');
     }
 }

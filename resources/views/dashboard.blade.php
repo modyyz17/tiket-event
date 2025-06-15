@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,14 +36,19 @@
 
 <!-- Navbar -->
 <nav class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
-    <div class="text-2xl font-bold text-blue-600">Eventify</div>
     <div class="flex gap-4 items-center">
-        <span class="text-gray-700">👋 {{ Auth::user()->name }}</span>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="text-sm text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600">Logout</button>
-        </form>
-    </div>
+    <span class="text-gray-700">👋 {{ Auth::user()->name }}</span>
+    
+    <a href="{{ route('profile.show') }}" class="text-sm text-white bg-blue-500 px-3 py-1 rounded hover:bg-blue-600">
+        Profil
+    </a>
+
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="text-sm text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600">Logout</button>
+    </form>
+</div>
+
 </nav>
 
 <!-- Profile Section -->
