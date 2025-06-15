@@ -19,13 +19,13 @@
                     <div class="concert-title">{{ $event->title }}</div>
                     <div class="concert-info">📍 {{ $event->location }}</div>
                     <div class="concert-info">📅 {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</div>
+                   <div class="concert-info">💵 Rp {{ number_format($event->price ?? 0, 0, ',', '.') }}</div>
                     <div class="concert-description">{{ $event->description }}</div>
 
                     <!-- Tombol beli tiket -->
                     <a href="{{ route('tiket.create', ['id' => $event->id]) }}" class="btn-ticket">
                         🎟️ Beli Tiket
                     </a>
-
                 </div>
             </div>
         @empty

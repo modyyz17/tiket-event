@@ -10,6 +10,7 @@
         max-width: 960px;
         margin: 40px auto;
         padding: 20px;
+        padding-top: 40px;
     }
 
     h2 {
@@ -51,26 +52,6 @@
         color: #111827;
     }
 
-    .status-paid {
-        color: #10b981;
-        font-weight: bold;
-    }
-
-    .status-pending {
-        color: #f59e0b;
-        font-weight: bold;
-    }
-
-    .status-pending_verification {
-        color: #fbbf24;
-        font-weight: bold;
-    }
-
-    .status-cancelled {
-        color: #ef4444;
-        font-weight: bold;
-    }
-
     .ticket-actions {
         margin-top: 16px;
     }
@@ -95,6 +76,13 @@
         color: white;
     }
 
+    .btn-menunggu {
+        background-color: #fef3c7;
+        color: #92400e;
+        cursor: not-allowed;
+        border: 1px solid #fde68a;
+    }
+
     .no-ticket {
         background-color: #f3f4f6;
         padding: 20px;
@@ -103,7 +91,6 @@
         color: #6b7280;
     }
 
-    /* Responsif untuk layar kecil */
     @media (max-width: 600px) {
         .ticket-card {
             padding: 16px;
@@ -118,6 +105,13 @@
 
 <div class="container">
     <h2>🎟️ Tiket Saya</h2>
+
+    {{-- 🔙 Tombol Kembali --}}
+    <div style="margin-bottom: 20px;">
+        <a href="{{ route('dashboard') }}" style="display: inline-block; background-color: #e5e7eb; color: #374151; padding: 10px 16px; border-radius: 8px; text-decoration: none;">
+            ⬅️ Kembali ke Beranda
+        </a>
+    </div>
 
     {{-- ✅ Flash Message --}}
     @if(session('success'))
@@ -143,14 +137,17 @@
                             <p><strong>Total:</strong> Rp{{ number_format($tiket->total_price, 0, ',', '.') }}</p>
                             <p><strong>Kode:</strong> {{ $tiket->ticket_code }}</p>
                             <p><strong>Status:</strong>
-                                @if($tiket->status === 'paid')
-                                    <span class="status-paid">Lunas</span>
-                                @elseif($tiket->status === 'pending')
-                                    <span class="status-pending">Menunggu Pembayaran</span>
-                                @elseif($tiket->status === 'pending_verification')
-                                    <span class="status-pending_verification">Menunggu Verifikasi</span>
+                                @php
+                                    $status = strtolower($tiket->status);
+                                @endphp
+                                @if(in_array($status, ['paid', 'lunas', 'sudah_dibayar']))
+                                    <span style="color:#10b981; font-weight:bold;">Lunas</span>
+                                @elseif(in_array($status, ['pending', 'menunggu pembayaran', 'belum_bayar']))
+                                    <span style="color:#d97706; font-weight:bold;">Menunggu Pembayaran</span>
+                                @elseif(in_array($status, ['menunggu_verifikasi', 'pending_verification']))
+                                    <span style="color:#eab308; font-weight:bold;">Menunggu Verifikasi</span>
                                 @else
-                                    <span class="status-cancelled">{{ ucfirst($tiket->status) }}</span>
+                                    <span style="color:#ef4444; font-weight:bold;">{{ ucfirst($status) }}</span>
                                 @endif
                             </p>
                             <p><strong>Metode:</strong> {{ strtoupper($tiket->payment_method) }}</p>
@@ -158,12 +155,12 @@
                     </div>
 
                     <div class="ticket-actions">
-                        @if($tiket->status === 'paid')
+                        @if(in_array($status, ['paid', 'lunas', 'sudah_dibayar']))
                             <a href="{{ route('tiket.final', $tiket->id) }}" class="btn-lihat">📄 Lihat Tiket</a>
-                        @elseif($tiket->status === 'pending')
+                        @elseif(in_array($status, ['pending', 'menunggu pembayaran', 'belum_bayar']))
                             <a href="{{ route('tiket.upload.form', $tiket->id) }}" class="btn-bayar">💳 Lanjutkan Pembayaran</a>
-                        @elseif($tiket->status === 'pending_verification')
-                            <span class="btn-lihat" style="background-color:#fef3c7; color:#92400e; cursor: default;">⏳ Menunggu Verifikasi</span>
+                        @elseif(in_array($status, ['menunggu_verifikasi', 'pending_verification']))
+                            <span class="btn-menunggu">⏳ Menunggu Verifikasi</span>
                         @endif
                     </div>
                 </div>

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Event;
 
 class Tiket extends Model
 {
@@ -19,11 +21,17 @@ class Tiket extends Model
         'payment_method',
         'ticket_code',
         'status',
-        'payment_proof_path', // tambahkan jika kamu menggunakan bukti pembayaran
+        'payment_proof_path',
     ];
 
-    public function event()
-    {
-        return $this->belongsTo(Event::class);
-    }
+    // Relasi ke tabel users
+    // app/Models/Tiket.php
+public function user() {
+    return $this->belongsTo(User::class, 'email', 'email');
+}
+
+    // Relasi ke tabel events
+   public function event() {
+    return $this->belongsTo(Event::class, 'event_id');
+}
 }

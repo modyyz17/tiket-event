@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <a href="{{ url('/') }}" class="btn-back">← Kembali ke Home</a>
+    <a href="{{ url('dashboard') }}" class="btn-back">← Kembali ke Home</a>
 
-    <h2 class="text-xl font-bold text-center mb-4">🎵 Daftar Event Konser</h2>
+    <h2 class="text-xl font-bold text-center mb-4">🎮 Daftar Event Gameshow</h2>
 
     <form action="{{ route('konser') }}" method="GET" class="search-form text-center mb-6">
         <input type="text" name="search" placeholder="Cari konser..." value="{{ request('search') }}">
@@ -19,11 +19,14 @@
                     <div class="concert-title">{{ $event->title }}</div>
                     <div class="concert-info">📍 {{ $event->location }}</div>
                     <div class="concert-info">📅 {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</div>
+                    <div class="concert-info">💵 Rp {{ number_format($event->price ?? 0, 0, ',', '.') }}</div>
                     <div class="concert-description">{{ $event->description }}</div>
-                    <form action="{{ route('ticket.buy', $event->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn-ticket">🎟️ Beli Tiket</button>
-                    </form>
+
+                    <!-- Tombol beli tiket -->
+                    <a href="{{ route('tiket.create', ['id' => $event->id]) }}" class="btn-ticket">
+                        🎟️ Beli Tiket
+                    </a>
+
                 </div>
             </div>
         @empty

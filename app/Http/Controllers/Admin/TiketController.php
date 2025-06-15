@@ -5,29 +5,57 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tiket;
-use App\Models\KategoriTiket;
+use App\Models\Event;
+use App\Models\User;
 
-class TiketController extends Controller
+class AdminTiketController extends Controller
 {
     public function index()
     {
-        $tiket = Tiket::with('kategori')->get();
-        return view('admin.tiket.index', compact('tiket'));
+        $tikets = Tiket::with(['user', 'event'])->get();
+        return view('admin.tiket.index', compact('tikets'));
     }
 
-    public function create()
+    public function edit($id)
     {
-        $kategori = KategoriTiket::all();
-        return view('admin.tiket.create', compact('kategori'));
+        $tiket = Tiket::with('event', 'user')->findOrFail($id);
+        return view('admin.tiket.edit', compact('tiket'));
     }
 
-    public function store(Request $request)
+    public function update(Request $request, $id)
     {
-        $data = $request->all();
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('gambar', 'public');
-        }
-        Tiket::create($data);
-        return redirect()->route('tiket.index');
+        $tiket = Tiket::findOrFail($id);
+        $tiket->update($request->only('status'));
+        return redirect()->route('admin.tiket')->with('success', 'Tiket berhasil diperbarui.');
+    }
+
+    public function show($id)
+    {
+        $tiket = Tiket::with('event', 'user')->findOrFail($id);
+        return view('admin.tiket.show', compact('tiket'));
+    }
+
+    public function konfirmasi($id)
+    {
+        $tiket = Tiket::findOrFail($id);
+        $tiket->status = 'confirmed';
+        $tiket->save();
+
+        return redirect()->back()->with('success', 'Pembayaran telah dikonfirmasi.');
+    }
+
+    public function daftarVerifikasi()
+    {
+        $tikets = Tiket::where('status', 'waiting')->with('user', 'event')->get();
+        return view('admin.tiket.verifikasi', compact('tikets'));
+    }
+
+    public function tolakVerifikasi($id)
+    {
+        $tiket = Tiket::findOrFail($id);
+        $tiket->status = 'rejected';
+        $tiket->save();
+
+        return redirect()->back()->with('success', 'Pembayaran ditolak.');
     }
 }

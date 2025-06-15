@@ -105,6 +105,6 @@
 
     <a href="{{ route('profile.edit') }}" class="btn-edit">✏️ Edit Profil</a>
     <a href="{{ route('tiket.my') }}" class="btn-back">📄 Riwayat Tiket</a>
-    <a href="{{ url('dashboard') }}" class="btn-back">← Kembali ke Dashboard</a>
+    <a href="{{ url('dashboard') }}" class="btn-back">← Kembali ke Halaman</a>
 </div>
 @endsection

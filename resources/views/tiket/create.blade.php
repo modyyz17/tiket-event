@@ -3,70 +3,69 @@
 @section('content')
 <style>
     .form-wrapper {
-        max-width: 600px;
+        max-width: 480px;
         margin: 2rem auto;
-        padding: 2rem;
-        background-color: #f9f9f9;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 1.5rem;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        font-family: Arial, sans-serif;
     }
 
     .form-wrapper h2 {
         text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 1.5rem;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 1rem;
     }
 
     .form-group {
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
     }
 
     .form-group label {
         display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 0.3rem;
         color: #333;
     }
 
     .form-group input,
     .form-group select {
         width: 100%;
-        padding: 0.75rem;
+        padding: 0.5rem;
+        font-size: 14px;
         border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 15px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-        border-color: #007bff;
-        outline: none;
+        border-radius: 6px;
     }
 
     .form-submit {
         margin-top: 1rem;
-        text-align: center;
     }
 
     .form-submit button {
-        background-color: #007bff;
-        color: #fff;
-        font-weight: bold;
-        padding: 0.75rem 1.5rem;
         width: 100%;
+        padding: 0.6rem;
+        background-color: #007bff;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
         border: none;
-        border-radius: 8px;
+        border-radius: 6px;
         cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
     }
 
     .form-submit button:hover {
         background-color: #0056b3;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        color: #155724;
+        padding: 0.75rem;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 1rem;
     }
 </style>
 
@@ -74,7 +73,7 @@
     <h2>Pesan Tiket: {{ $event->title }}</h2>
 
     @if(session('success'))
-        <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 8px; margin-bottom: 16px;">
+        <div class="alert-success">
             {{ session('success') }}
         </div>
     @endif

@@ -9,20 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('kategori_tiket', function (Blueprint $table) {
-    $table->id();
-    $table->string('nama');
-    $table->timestamps();
-        });
+    public function up()
+{
+    if (!Schema::hasColumn('events', 'price')) {
+        $table->integer('price')->default(0)->after('location');
     }
-
+}
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_tiket');
+        Schema::table('events', function (Blueprint $table) {
+            //
+        });
     }
 };

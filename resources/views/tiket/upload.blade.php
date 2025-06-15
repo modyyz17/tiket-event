@@ -1,35 +1,118 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container max-w-xl mx-auto p-6 bg-white shadow rounded mt-6">
-    <h2 class="text-2xl font-bold text-yellow-600 mb-4">📤 Upload Bukti Pembayaran</h2>
+<style>
+    .upload-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 24px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <p class="mb-4 text-gray-700">Silakan upload bukti pembayaran untuk tiket event <strong>{{ $tiket->event->title }}</strong>.</p>
+    .upload-container h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #D97706;
+        margin-bottom: 16px;
+    }
+
+    .upload-container p {
+        color: #4B5563;
+        margin-bottom: 16px;
+    }
+
+    .alert-success {
+        background-color: #D1FAE5;
+        color: #065F46;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+    }
+
+    .alert-error {
+        background-color: #FECACA;
+        color: #991B1B;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+    }
+
+    label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 6px;
+        color: #374151;
+    }
+
+    .form-group {
+        margin-bottom: 24px;
+    }
+
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #D1D5DB;
+        border-radius: 6px;
+        background-color: #F9FAFB;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .error-message {
+        color: #DC2626;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    button {
+        background-color: #F59E0B;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+        background-color: #D97706;
+    }
+</style>
+
+<div class="upload-container">
+    <h2>📤 Upload Bukti Pembayaran</h2>
+
+    <p>Silakan upload bukti pembayaran untuk tiket event <strong>{{ $tiket->event->title }}</strong>.</p>
 
     @if(session('success'))
-        <div class="bg-green-100 text-green-800 px-4 py-2 rounded mb-4">
+        <div class="alert-success">
             {{ session('success') }}
         </div>
     @endif
 
     @if(session('error'))
-        <div class="bg-red-100 text-red-800 px-4 py-2 rounded mb-4">
+        <div class="alert-error">
             {{ session('error') }}
         </div>
     @endif
 
-    <form action="{{ route('tiket.upload.konfirmasi', $tiket->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('tiket.upload.kirim', $tiket->id) }}" method="POST" enctype="multipart/form-data">
+
         @csrf
 
-        <div class="mb-4">
-            <label for="payment_proof" class="block font-medium text-gray-700 mb-1">Upload Bukti (jpg, png, pdf)</label>
-            <input type="file" name="payment_proof" id="payment_proof" class="border border-gray-300 rounded w-full px-3 py-2" required>
+        <div class="form-group">
+            <label for="payment_proof">Upload Bukti (jpg, png, pdf)</label>
+            <input type="file" name="payment_proof" id="payment_proof" required>
             @error('payment_proof')
-                <div class="text-red-600 mt-1 text-sm">{{ $message }}</div>
+                <div class="error-message">{{ $message }}</div>
             @enderror
         </div>
 
-        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
+        <button type="submit">
             🚀 Kirim Bukti Pembayaran
         </button>
     </form>
